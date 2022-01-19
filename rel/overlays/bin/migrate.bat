@@ -1,0 +1,1 @@
+call "%~dp0\price_bot" eval PriceBot.Release.migrate
