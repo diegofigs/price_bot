@@ -11,6 +11,8 @@ jobs:
 
     name: Build and test
     runs-on: ubuntu-latest
+    env:
+      BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
 
     steps:
     - uses: actions/checkout@v2
