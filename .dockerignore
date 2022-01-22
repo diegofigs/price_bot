@@ -4,6 +4,7 @@
 #.git
 .log
 tmp
+.elixir_ls
 
 # Mix artifacts
 _build
