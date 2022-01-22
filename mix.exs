@@ -10,7 +10,8 @@ defmodule PriceBot.MixProject do
       compilers: [:gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      preferred_cli_env: ["test.all": :test]
     ]
   end
 
@@ -25,7 +26,7 @@ defmodule PriceBot.MixProject do
   end
 
   # Specifies which paths to compile per environment.
-  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  # defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
@@ -46,7 +47,8 @@ defmodule PriceBot.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:httpoison, "~> 1.8"},
       {:poison, "~> 4.0"},
-      {:alchemy, "~> 0.7.0", hex: :discord_alchemy}
+      {:alchemy, "~> 0.7.0", hex: :discord_alchemy},
+      {:money, "~> 1.4"}
     ]
   end
 
@@ -61,7 +63,8 @@ defmodule PriceBot.MixProject do
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      "test.all": "test test/price_bot"
     ]
   end
 end
