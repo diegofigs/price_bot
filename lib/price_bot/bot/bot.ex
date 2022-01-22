@@ -10,8 +10,23 @@ defmodule PriceBot.Bot do
     end
 
     Cogs.def price(word) do
-      Cogs.say(PriceBot.Core.fetch(word))
+      response = PriceBot.Core.price(word) |> Money.parse!() |> Money.to_string()
+      Cogs.say(response)
     end
+
+    Cogs.def mc(word) do
+      response = PriceBot.Core.market_cap(word) |> Money.parse!() |> Money.to_string()
+      Cogs.say(response)
+    end
+
+    Cogs.def volume(word) do
+      response = PriceBot.Core.volume(word) |> Money.parse!() |> Money.to_string()
+      Cogs.say(response)
+    end
+  end
+
+  def start_link(state) do
+    GenServer.start_link(__MODULE__, state, name: __MODULE__)
   end
 
   @impl true
@@ -19,9 +34,5 @@ defmodule PriceBot.Bot do
     run = Client.start(token)
     use Commands
     run
-  end
-
-  def start_link(state) do
-    GenServer.start_link(__MODULE__, state, name: __MODULE__)
   end
 end

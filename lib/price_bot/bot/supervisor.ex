@@ -6,9 +6,9 @@ defmodule PriceBot.Bot.Supervisor do
   end
 
   @impl true
-  def init(token) do
+  def init(_) do
     children = [
-      {PriceBot.Bot, token}
+      {PriceBot.Bot, System.get_env("BOT_TOKEN")}
     ]
 
     Supervisor.init(children, strategy: :one_for_one)

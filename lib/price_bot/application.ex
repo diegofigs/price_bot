@@ -8,16 +8,13 @@ defmodule PriceBot.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Start the Ecto repository
-      PriceBot.Repo,
       # Start the Telemetry supervisor
       PriceBotWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: PriceBot.PubSub},
       # Start the Endpoint (http/https)
       PriceBotWeb.Endpoint,
-      # Start the Discord bot supervisor
-      {PriceBot.Bot.Supervisor, Application.get_env(:price_bot, :token)}
+      PriceBot.Bot.Supervisor
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
