@@ -1,2 +1,3 @@
 ExUnit.start()
-Ecto.Adapters.SQL.Sandbox.mode(PriceBot.Repo, :manual)
+# Turn on if using Ecto
+# Ecto.Adapters.SQL.Sandbox.mode(PriceBot.Repo, :manual)
