@@ -4,6 +4,9 @@ on:
   workflow_run:
     workflows: ["Elixir CI"]
     types: [requested]
+    branches:
+      - main
+      - 'releases/**'
 
 env:
   REGISTRY: ghcr.io
