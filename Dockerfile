@@ -48,10 +48,10 @@ COPY priv priv
 # which customizes asset compilation based on what it finds in
 # your Elixir templates, you will need to move the asset compilation
 # step down so that `lib` is available.
-COPY assets assets
+# COPY assets assets
 
-# compile assets
-RUN mix assets.deploy
+# # compile assets
+# RUN mix assets.deploy
 
 # Compile the release
 COPY lib lib
