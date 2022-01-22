@@ -6,6 +6,9 @@ kill_signal = "SIGTERM"
 kill_timeout = 5
 processes = []
 
+[build]
+  image = "ghcr.io/diegofigs/price_bot:main"
+
 [deploy]
   release_command = "/app/bin/price_bot daemon"
 
