@@ -35,9 +35,9 @@ defmodule PriceBot.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.6.6"},
-      {:phoenix_ecto, "~> 4.4", only: :dev},
-      {:ecto_sql, "~> 3.6", only: :dev},
-      {:postgrex, ">= 0.0.0", only: :dev},
+      {:phoenix_ecto, "~> 4.4", only: [:dev, :prod]},
+      {:ecto_sql, "~> 3.6", only: [:dev, :prod]},
+      {:postgrex, ">= 0.0.0", only: [:dev, :prod]},
       {:phoenix_live_dashboard, "~> 0.6"},
       {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6"},
