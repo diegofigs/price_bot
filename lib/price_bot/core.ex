@@ -8,18 +8,16 @@ defmodule PriceBot.Core do
     "btc" => "bitcoin",
     "eth" => "ethereum",
     "bnb" => "binancecoin",
-    ada: "cardano",
-    sol: "solana",
-    luna: "terra-luna",
-    dot: "polkadot",
-    avax: "avalanche-2",
-    matic: "matic-network",
-    atom: "cosmos",
-    near: "near",
-    ftm: "fantom",
-    one: "harmony",
-    osmo: "osmosis",
-    celo: "celo"
+    "ada" => "cardano",
+    "sol" => "solana",
+    "luna" => "terra-luna",
+    "dot" => "polkadot",
+    "avax" => "avalanche-2",
+    "matic" => "matic-network",
+    "atom" => "cosmos",
+    "ftm" => "fantom",
+    "one" => "harmony",
+    "osmo" => "osmosis",
   }
 
   def fetch(ticker, opts \\ %{currency: @usd}) do
