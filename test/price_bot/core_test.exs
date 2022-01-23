@@ -7,6 +7,10 @@ defmodule PriceBotCoreTest do
     assert PriceBot.Core.fetch(@btc) > 0
   end
 
+  test "fetch/1 requests bitcoin price with ticker as input" do
+    assert PriceBot.Core.fetch("btc") > 0
+  end
+
   test "fetch/2 requests price with market_cap" do
     assert PriceBot.Core.fetch(@btc, %{market_cap: true}) > 0
   end
