@@ -11,7 +11,7 @@ defmodule PriceBot.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
-      preferred_cli_env: ["test.all": :test]
+      test_paths: ["test/price_bot"]
     ]
   end
 
@@ -63,8 +63,8 @@ defmodule PriceBot.MixProject do
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "test.all": "test test/price_bot"
+      # test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      test: ["test"]
     ]
   end
 end
