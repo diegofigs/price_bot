@@ -2,7 +2,8 @@ require Logger
 
 defmodule PriceBot.Core do
   @coingecko_api "https://api.coingecko.com/api/v3"
-  def fetch(ticker, opts \\ %{}) do
+  @usd "usd"
+  def fetch(ticker, opts \\ %{currency: @usd}) do
     optionalParams = %{
       include_market_cap: Map.get(opts, :market_cap, false),
       include_24hr_vol: Map.get(opts, :volume, false),
@@ -39,44 +40,35 @@ defmodule PriceBot.Core do
         "usd_24h_vol"
       :change ->
         "usd_24h_change"
-      _ -> "usd"
+      :price -> @usd
+      _ -> @usd
     end
   end
 
   def price(ticker) do
-    params = constructParams(ticker)
-    fetch(ticker, params)
-    |> Map.get("usd")
+    fetch(ticker)
+    |> Map.get(optionToField(:price))
   end
 
   def market_cap(ticker) do
-    params = %{
-      market_cap: true
-    }
-    fetch(ticker, params)
+    fetch(ticker, %{market_cap: true})
     |> Map.get(optionToField(:market_cap))
   end
 
   def volume(ticker) do
-    params = %{
-      volume: true
-    }
-    fetch(ticker, params)
+    fetch(ticker, %{volume: true})
     |> Map.get(optionToField(:volume))
   end
 
   def change(ticker) do
-    params = %{
-      change: true
-    }
-    fetch(ticker, params)
+    fetch(ticker, %{change: true})
     |> Map.get(optionToField(:change))
   end
 
-  defp constructParams(ticker, opts \\ %{}) do
+  defp constructParams(ticker, opts) do
     %{
       ids: ticker,
-      vs_currencies: Map.get(opts, :currency, "usd")
+      vs_currencies: Map.get(opts, :currency, @usd)
     }
   end
 end
