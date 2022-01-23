@@ -11,7 +11,7 @@ defmodule PriceBot.Application do
       # Start the Ecto repository
       # PriceBot.Repo,
       # Start the Telemetry supervisor
-      # PriceBotWeb.Telemetry,
+      PriceBotWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: PriceBot.PubSub},
       # Start the Endpoint (http/https)
