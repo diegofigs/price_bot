@@ -18,6 +18,20 @@ defmodule PriceBot.Core do
     "ftm" => "fantom",
     "one" => "harmony",
     "osmo" => "osmosis",
+    "magic" => "cosmic-universe-magic-token",
+    "cosmic" => "cosmic-coin",
+    "jewel" => "defi-kingdoms",
+    "boo" => "spookyswap",
+    "spirit" => "spiritswap",
+    "lqdr" => "liquiddriver",
+    "wmemo" => "wrapped-memory",
+    "spell" => "spell-token",
+    "crv" => "curve-dao-token",
+    "baby" => "babyswap",
+    "aurora" => "aurora-near",
+    "brl" => "borealis",
+    "tri" => "trisolaris",
+    "pad" => "nearpad"
   }
 
   def fetch(ticker, opts \\ %{currency: @usd}) do
