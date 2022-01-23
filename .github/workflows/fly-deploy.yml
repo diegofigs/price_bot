@@ -10,14 +10,13 @@ on:
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
-permissions:
-  contents: read
-  packages: read
-
 jobs:
   deploy:
-    name: Pull and deploy image
+    name: Deploy
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
 
     steps:
       - name: Checkout repository
