@@ -37,6 +37,8 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :porcelain, driver: Porcelain.Driver.Basic
+
 config :money,
   default_currency: :USD,
   separator: ",",
