@@ -1,5 +1,5 @@
 defmodule PriceBot.Bot do
-  use GenServer, restart: :transient
+  use GenServer
   alias Alchemy.Client
 
   defmodule Commands do
