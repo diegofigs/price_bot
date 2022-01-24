@@ -16,7 +16,7 @@ defmodule PriceBot.Application do
       {Phoenix.PubSub, name: PriceBot.PubSub},
       # Start the Endpoint (http/https)
       PriceBotWeb.Endpoint,
-      PriceBot.Bot.Supervisor
+      PriceBot.Bot
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

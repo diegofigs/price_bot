@@ -7,8 +7,8 @@ defmodule PriceBot.Bot do
   end
 
   @impl true
-  def init(token) do
-    run = Client.start(token)
+  def init(_) do
+    run = Client.start(Application.fetch_env!(:price_bot, :token))
     use PriceBot.Bot.Commands
     run
   end
