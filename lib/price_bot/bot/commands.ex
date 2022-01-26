@@ -1,8 +1,13 @@
 defmodule PriceBot.Bot.Commands do
   use Alchemy.Cogs
 
+  Cogs.def tickers do
+    response = PriceBot.Core.all()
+    Cogs.say(response)
+  end
+
   Cogs.def price do
-    Cogs.say("Please give me a coingecko token-id")
+    Cogs.say("Please give me a coingecko token-id or use !tickers for a list of supported tickers")
   end
 
   Cogs.def price(word) do
