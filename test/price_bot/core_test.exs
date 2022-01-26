@@ -34,7 +34,7 @@ defmodule PriceBotCoreTest do
 
   test "all/0 returns a binary" do
     result = PriceBot.Core.all()
-    assert result |> is_number()
+    assert result |> is_binary()
   end
 
   test "price/1 returns a number" do
