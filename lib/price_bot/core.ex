@@ -63,6 +63,12 @@ defmodule PriceBot.Core do
     end
   end
 
+  def all() do
+    @tickers
+    |> Map.keys()
+    |> Enum.join(", ")
+  end
+
   def price(ticker) do
     fetch(ticker)
     |> Map.get(optionToField(:currency))
