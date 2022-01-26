@@ -34,14 +34,20 @@ defmodule PriceBot.Core do
     "pad" => "nearpad"
   }
 
-  def fetch(ticker, opts \\ %{currency: @usd}) do
-    requiredParams = constructParams(ticker, opts)
-    optionalParams = %{
-      include_market_cap: Map.get(opts, :market_cap, false),
-      include_24hr_vol: Map.get(opts, :volume, false),
-      include_24hr_change: Map.get(opts, :change, false)
+  @default %{
+    currency: @usd,
+    market_cap: false,
+    volume: false,
+    change: false,
+  }
+  def fetch(ticker, opts \\ @default) do
+    required = constructParams(ticker, opts)
+    optional = %{
+      include_market_cap: Map.get(opts, :market_cap, @default[:market_cap]),
+      include_24hr_vol: Map.get(opts, :volume, @default[:volume]),
+      include_24hr_change: Map.get(opts, :change, @default[:change])
     }
-    params = requiredParams |> Map.merge(optionalParams)
+    params = Map.merge(required, optional)
 
     query_params = URI.encode_query(params)
     price_url = "#{@coingecko_api}/simple/price?#{query_params}"
@@ -51,35 +57,15 @@ defmodule PriceBot.Core do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         body
         |> Poison.decode!()
-        |> Map.get(Map.get(params, :ids))
+        |> Map.get(params[:ids])
         |> transform(opts)
       {:error, _} -> %{}
     end
   end
 
-  defp transform(data, opts) do
-    keys = Map.keys(opts) |> Enum.map(fn opt -> optionToField(opt) end)
-
-    data
-    |> Map.take(keys)
-  end
-
-  defp optionToField(opt) do
-    case opt do
-      :market_cap ->
-        "usd_market_cap"
-      :volume ->
-        "usd_24h_vol"
-      :change ->
-        "usd_24h_change"
-      :price -> @usd
-      _ -> @usd
-    end
-  end
-
   def price(ticker) do
     fetch(ticker)
-    |> Map.get(optionToField(:price))
+    |> Map.get(optionToField(:currency))
   end
 
   def market_cap(ticker) do
@@ -98,10 +84,35 @@ defmodule PriceBot.Core do
     |> Map.get(optionToField(:change))
   end
 
+  ## Private
+
   defp constructParams(ticker, opts) do
     %{
       ids: Map.get(@tickers, ticker, ticker),
-      vs_currencies: Map.get(opts, :currency, @usd)
+      vs_currencies: Map.get(opts, :currency, @default[:currency])
     }
+  end
+
+  defp transform(data, opts) do
+    all_options = Map.merge(@default, opts)
+    keys = all_options
+    |> Enum.to_list()
+    |> Enum.filter(fn ({_, value}) -> value == true or is_bitstring(value) end)
+    |> Enum.map(fn ({key, _}) -> optionToField(key, all_options[:currency]) end)
+
+    data
+    |> Map.take(keys)
+  end
+
+  defp optionToField(opt, currency \\ @usd) do
+    case opt do
+      :currency -> currency
+      :market_cap ->
+        "#{currency}_market_cap"
+      :volume ->
+        "#{currency}_24h_vol"
+      :change ->
+        "#{currency}_24h_change"
+    end
   end
 end
